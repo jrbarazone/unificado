@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Copy the JSON keyfile to the working directory
-COPY sqlbarazone-2fdbb67f3964.json /app/sqlbarazone-2fdbb67f3964.json
+# Ensure the secrets directory is copied
+COPY secrets /app/secrets
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
