@@ -1,0 +1,34 @@
+name: Deploy to Firebase Hosting on PR
+
+on:
+  push:
+    branches:
+      - main  # Puedes cambiar la rama según tu flujo de trabajo
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Puedes especificar la versión de Node.js que necesitas
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build  # Ajusta este comando según tu script de construcción
+
+    - name: Deploy to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BARAZONE_APP }}'
+        channelId: live  # Puedes cambiar esto a un canal de vista previa si lo prefieres
+        projectId: barazone-app
+ 
